@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView, CreateAPIView, get_object_or_404, \
     DestroyAPIView, RetrieveDestroyAPIView, GenericAPIView
+from rest_framework.pagination import CursorPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -11,9 +12,15 @@ from feed.models import Post, PostComment, PostLike
 from feed.serializers import PostSerializer, PostDetailSerializer, PostCommentCreateSerializer, PostLikeSerializer
 
 
+class PostCursorPagination(CursorPagination):
+    page_size = 10
+    ordering = '-created_at'
+
+
 class PostsAPIView(ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    pagination_class = PostCursorPagination
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 

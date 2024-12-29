@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
     )
 
     USERNAME_FIELD = "email"  # 사용자의 인증에 사용할 필드를 지정하는 속성
-    REQUIRED_FIELDS = []  # createsuperuser 명령을 실행할 때 필수로 입력해야 하는 추가 필드를 지정하는 속성
+    REQUIRED_FIELDS = ["username"]  # createsuperuser 명령을 실행할 때 필수로 입력해야 하는 추가 필드를 지정하는 속성
 
 
 class Follow(models.Model):
