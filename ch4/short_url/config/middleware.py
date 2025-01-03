@@ -10,7 +10,6 @@ class HiddenMethodOverrideMiddleware:
             override_method = request.POST["_method"].upper()
             if override_method in ["PUT", "DELETE", "PATCH"]:
                 request.method = override_method
-                request._load_post_and_files()
                 request.META["REQUEST_METHOD"] = override_method
                 csrf_token = request.COOKIES.get(settings.CSRF_COOKIE_NAME)
                 request.META[settings.CSRF_HEADER_NAME] = csrf_token
