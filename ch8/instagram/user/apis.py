@@ -36,6 +36,7 @@ class UserMeAPIView(RetrieveUpdateAPIView):
 
 class UserDetailView(RetrieveAPIView):
     queryset = CustomUser.objects.all()
+    lookup_url_kwarg = "user_id"
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
@@ -54,15 +55,14 @@ class UserFollowAPIView(GenericAPIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
-    def post(self, request, *args, **kwargs):
-        target_user_id = kwargs["pk"]
-        if target_user_id == request.user.id:
+    def post(self, request, user_id):
+        if user_id == request.user.id:
             raise PermissionDenied("자기 자신을 팔로잉 할 수 없습니다.")
 
-        follow, _ = Follow.objects.get_or_create(user_id=target_user_id, follower_id=request.user.id)
+        follow, _ = Follow.objects.get_or_create(user_id=user_id, follower_id=request.user.id)
         serializer = UserFollowReadSerializer(follow)
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-    def delete(self, request, *args, **kwargs):
-        Follow.objects.filter(user_id=kwargs["pk"], follower_id=request.user.id).delete()
+    def delete(self, request, user_id):
+        Follow.objects.filter(user_id=user_id, follower_id=request.user.id).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

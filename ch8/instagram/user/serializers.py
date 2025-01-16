@@ -8,6 +8,7 @@ class UserSignUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ["id", "email", "username", "password"]
+        read_only_fields = ["id"]
 
     def create(self, validated_data):
         user = CustomUser.objects.create_user(

@@ -11,6 +11,7 @@ class SocialProviderChoice(models.TextChoices):
 
 
 class User(AbstractUser):
+    models.PositiveIntegerField
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, db_index=True)
     social_provider = models.CharField(
         choices=SocialProviderChoice.choices, max_length=8, null=True
