@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+안녕하세요, {{ user.username | default:'게스트' }}님
+
+<div>
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">로그아웃</button>
+        <a href="{% url 'password_change' %}">비밀번호 변경</a>
+    </form>
+
+    {% else %}
+        <a href="{% url 'sign_up' %}">회원가입</a>
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'kakao_social_login' %}">카카오 소셜 로그인</a>
+    {% endif %}
+</div>
+
+{% endblock %}

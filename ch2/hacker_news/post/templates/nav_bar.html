@@ -1,0 +1,14 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid" style="background-color: #ff6600;">
+    <a class="navbar-brand" href="{% url 'posts' %}">
+      <img src="{% static 'hn_logo.svg' %}" alt="Logo" width="24" height="24" class="d-inline-block align-text-top bg-white border">
+      HackerNews
+    </a>
+    <div class="collapse navbar-collapse">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="{% url 'post_create' %}">새 글 작성</a>
+      </div>
+    </div>
+  </div>
+</nav>

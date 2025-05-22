@@ -1,0 +1,10 @@
+asgiref==3.8.1
+Django==5.2
+djangorestframework==3.16.0
+djangorestframework_simplejwt==5.5.0
+pillow==11.2.1
+psycopg2-binary==2.9.10
+PyJWT==2.9.0
+sqlparse==0.5.3
+django-ebhealthcheck==2.0.2
+django-storages[s3]==1.14.6

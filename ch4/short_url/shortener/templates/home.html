@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+  <form action="{% url 'shorten_url' %}" method="post" class="d-flex align-center">
+    {% csrf_token %}
+    <div class="me-2">
+      {{ form }}
+    </div>
+    <button type="submit" class="btn btn-primary">생성</button>
+  </form>
+  <hr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ShortURL</th>
+        <th scope="col">OriginalURL</th>
+        <th scope="col">AccessCount</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for short_url in short_urls %}
+        <tr>
+          <td> {{ forloop.counter }} </td>
+          <td> {{ short_url.code }} </td>
+          <td> {{ short_url.original_url }} </td>
+          <td> {{ short_url.access_count }} </td>
+          <td>
+            <form action="{% url 'short_url_detail' short_url.code %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+            </form>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4" class="text-center">No data available</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+services:
+  db:
+    container_name: django_db
+    image: postgres:16
+    restart: always
+    volumes:
+      - local_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: hands_on
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: securepassword
+      PGDATA: /var/lib/postgresql/data/django_db/
+    ports:
+      - "54321:5432"
+
+  cache:
+    container_name: django_redis
+    image: redis:7.4
+    ports:
+      - "63790:6379"
+
+volumes:
+  local_db:
