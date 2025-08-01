@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="{% url 'posts' %}" method="post">
+<form action="{% url 'post_create' %}" method="post">
     {% csrf_token %}
     <h2>새로운 게시글 작성</h2>
     {{ form }}
